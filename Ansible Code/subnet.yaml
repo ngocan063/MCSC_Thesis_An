@@ -1,0 +1,44 @@
+
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+  - ec2_vpc_subnet:
+      vpc_id: vpc-029e6334a284e97b1
+      state: present
+      map_public: 'yes'
+      cidr: 10.0.101.0/24
+      az: us-east-1a
+      tags:
+        Terraform: 'true'
+        Environment: dev
+        Name: an-vpc-public-us-east-1a
+  - ec2_vpc_subnet:
+      vpc_id: vpc-029e6334a284e97b1
+      state: present
+      cidr: 10.0.1.0/24
+      az: us-east-1a
+      tags:
+        Terraform: 'true'
+        Environment: dev
+        Name: an-vpc-private-us-east-1a
+  - ec2_vpc_subnet:
+      vpc_id: vpc-029e6334a284e97b1
+      state: present
+      cidr: 10.0.2.0/24
+      az: us-east-1b
+      tags:
+        Terraform: 'true'
+        Environment: dev
+        Name: an-vpc-private-us-east-1b
+  - ec2_vpc_subnet:
+      vpc_id: vpc-029e6334a284e97b1
+      state: present
+      map_public: 'yes'
+      cidr: 10.0.102.0/24
+      az: us-east-1b
+      tags:
+        Terraform: 'true'
+        Environment: dev
+        Name: an-vpc-public-us-east-1b
+

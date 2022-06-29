@@ -1,0 +1,52 @@
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+  - ec2_group:
+      name: sg_-bastion-20220626091334095400000002
+      vpc_id: vpc-029e6334a284e97b1
+      region: us-east-1
+      description: Security group for Front End
+      tags:
+        Name: allow_web
+      rules_egress:
+      - rule_desc: Egress Rule
+        proto: '-1'
+        cidr_ip: 0.0.0.0/0
+      rules:
+      - to_port: 80
+        rule_desc: ssh-service ports
+        proto: tcp
+        from_port: 80
+        cidr_ip: 3.95.16.188/32
+  - ec2_group:
+      name: sg_Jenkins-20220626091334096100000003
+      vpc_id: vpc-029e6334a284e97b1
+      region: us-east-1
+      description: Security group for Database
+      tags:
+        Name: database
+      rules_egress:
+      - rule_desc: Egress Rule
+        proto: '-1'
+        cidr_ip: 0.0.0.0/0
+      rules:
+      - rule_desc: ssh-service ports
+        proto: '-1'
+        cidr_ip: 10.0.0.0/16
+  - ec2_group:
+      name: sg_web_app-20220626091334094700000001
+      vpc_id: vpc-029e6334a284e97b1
+      region: us-east-1
+      description: Security group for BackEnd
+      tags:
+        Name: backend
+      rules_egress:
+      - rule_desc: Egress Rule
+        proto: '-1'
+        cidr_ip: 0.0.0.0/0
+      rules:
+      - rule_desc: ssh-service ports
+        proto: '-1'
+        cidr_ip: 10.0.0.0/16
+  

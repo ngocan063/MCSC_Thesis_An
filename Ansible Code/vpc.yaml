@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+  - ec2_vpc_net:
+      name: an-vpc
+      tenancy: default
+      state: present
+      cidr_block: 10.0.0.0/16
+      tags:
+        Terraform: 'true'
+        Environment: dev
+        Name: an-vpc
